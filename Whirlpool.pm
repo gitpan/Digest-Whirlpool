@@ -6,7 +6,7 @@ use MIME::Base64;
 require Exporter;
 
 our @EXPORT_OK = qw(new hashsize reset add addfile digest hexdigest base64digest);
-our $VERSION = '1.0.1';
+our $VERSION = '1.0.2';
 our @ISA = qw(Exporter);
 
 require XSLoader;

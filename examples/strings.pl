@@ -17,24 +17,31 @@ print "hash size=", $whirlpool->hashsize, "\n";
 
 $whirlpool->add($string1);
 my $digest = $whirlpool->hexdigest();
-print "Hash string1 only\n";
+print "1. Hash string1 only\n";
 print "$digest\n\n";
 
 $whirlpool->reset();
 $whirlpool->add($string1, $string2);
 my $digest2 = $whirlpool->hexdigest();
-print "Hash string1 and then hash string2\n";
+print "2. Hash string1 and then hash string2\n";
 print "$digest2\n\n";
 
 $whirlpool->reset();
 $whirlpool->add($string3);
-print "Hash the two concatenated strings\n";
+print "3. Hash the two concatenated strings\n";
 my $digest3 = $whirlpool->hexdigest();
 print "$digest3\n\n";
 
 $whirlpool->reset();
 $whirlpool->add($string4);
-print "Hash test string\n";
+print "4. Hash test string\n";
 my $digest4 = $whirlpool->hexdigest();
-print "Whirlpool hash OK\n" if ($digest4 eq $testdigest);
+print "Whirlpool hash OK\n\n" if ($digest4 eq $testdigest);
+
+$whirlpool->reset();
+$whirlpool->add($string1);
+$whirlpool->add($string2);
+print "5. Hash the two concatenated strings\n";
+my $digest5 = $whirlpool->hexdigest();
+print "$digest5\n\n";
 

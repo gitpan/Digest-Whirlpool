@@ -12,8 +12,7 @@ MODULE = Digest::Whirlpool		PACKAGE = Digest::Whirlpool
 PROTOTYPES: DISABLE
 
 Digest::Whirlpool
-new(class)
-    SV* class
+new(...)
     CODE:
     {
         Newz(0, RETVAL, 1, struct whirlpool);
