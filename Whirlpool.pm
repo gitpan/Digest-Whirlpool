@@ -6,7 +6,7 @@ use MIME::Base64;
 require Exporter;
 
 our @EXPORT_OK = qw(new hashsize reset add addfile digest hexdigest base64digest);
-our $VERSION = '1.0.0';
+our $VERSION = '1.0.1';
 our @ISA = qw(Exporter);
 
 require XSLoader;
@@ -16,29 +16,27 @@ XSLoader::load('Digest::Whirlpool', $VERSION);
 
 sub addfile
 {
-    no strict 'refs';
     my ($self, $handle) = @_;
     my ($package, $file, $line) = caller;
-    my $data = ' ' x 1048576;   # 2^20
 
     if (!ref($handle)) {
         $handle = "$package::$handle" unless ($handle =~ /(\:\:|\')/);
     }
 
-    while (read($handle, $data, 1048576)) {
+    while (read($handle, my $data, 1048576)) {
         $self->add($data);
     }
 }
 
 sub hexdigest
 {
-    my ($self) = shift;
+    my $self = shift;
     return unpack("H*", $self->digest());
 }
 
 sub base64digest
 {
-    my ($self) = shift;
+    my $self = shift;
     return encode_base64($self->digest(), "");
 }
 
@@ -156,7 +154,7 @@ must be installed first for this function to work.
     use Digest::Whirlpool;
 
     my $file = "strings.pl";
-    open INFILE, $file;
+    open INFILE, $file or die "$file not found";
 
     my $whirlpool = new Digest::Whirlpool;
     $whirlpool->addfile(*INFILE);

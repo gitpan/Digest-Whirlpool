@@ -7,7 +7,7 @@ use Digest::Whirlpool;
 use MIME::Base64;
 
 my $file = "strings.pl";
-open INFILE, $file;
+open INFILE, $file or die "$file not found";
 
 my $whirlpool = new Digest::Whirlpool;
 $whirlpool->addfile(*INFILE);
