@@ -6,7 +6,7 @@ use MIME::Base64;
 require Exporter;
 
 our @EXPORT_OK = qw(new hashsize reset add addfile digest hexdigest base64digest);
-our $VERSION = '1.0.2';
+our $VERSION = '1.0.3';
 our @ISA = qw(Exporter);
 
 require XSLoader;
@@ -80,7 +80,7 @@ Whirlpool is the NESSIE winner for this category.
 
 =item B<hashsize()>
 
-Returns the size (in bytes) of the hash (64, in this case)
+Returns the size (in bits) of the hash (512, in this case)
 
 =item B<add(LIST)>
 

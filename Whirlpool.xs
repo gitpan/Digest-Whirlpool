@@ -25,7 +25,7 @@ new(...)
 int
 hashsize(...)
     CODE:
-        RETVAL = 64;
+        RETVAL = 512;
     OUTPUT:
         RETVAL
 

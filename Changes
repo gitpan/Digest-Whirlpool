@@ -1,3 +1,7 @@
+1.0.3    2004 August 18
+         Modified hashsize() to return number of bits, instead of bytes
+         (to become consistent with Digest::SHA of Mark Shelor)
+
 1.0.2    2003 July 29
          Minor code cleanup
 

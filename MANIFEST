@@ -6,7 +6,6 @@ INSTALL
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
-META.yml
 ppport.h
 README
 t/01.t
@@ -26,3 +25,4 @@ t/loading.t
 typemap
 Whirlpool.pm
 Whirlpool.xs
+META.yml                                 Module meta-data (added by MakeMaker)
