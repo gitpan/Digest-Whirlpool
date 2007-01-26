@@ -1,3 +1,18 @@
+1.0.4    2006 January 24
+         Added a clone() method that clones the state of the current object and
+         returns the cloned object.
+
+         add and addfile now return current the object so ->add( "foo" )->digest
+         works like it does in other digest modules.
+
+         Added a b64digest method that is an alias for the base64digest method.
+
+         Removed (add addfile reset) from @EXPORT_OK, 
+
+         Updated the LICENSE section to the recommended FSF GPL notice
+
+         b64digest no longer returns a trailing ==
+
 1.0.3    2004 August 18
          Modified hashsize() to return number of bits, instead of bytes
          (to become consistent with Digest::SHA of Mark Shelor)

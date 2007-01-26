@@ -22,6 +22,18 @@ new(...)
     OUTPUT:
         RETVAL
 
+Digest::Whirlpool
+clone(self)
+	Digest::Whirlpool self
+    CODE:
+    {
+        Newz(0, RETVAL, 1, struct whirlpool);
+        Copy(&self->state, &RETVAL->state, 1, struct whirlpool);
+    }
+
+    OUTPUT:
+        RETVAL
+
 int
 hashsize(...)
     CODE:
@@ -29,13 +41,13 @@ hashsize(...)
     OUTPUT:
         RETVAL
 
-void
+Digest::Whirlpool
 reset(self)
     Digest::Whirlpool self
     CODE:
         NESSIEinit(&self->state);
         
-void
+Digest::Whirlpool
 add(self, ...)
     Digest::Whirlpool self
     CODE:
@@ -55,6 +67,8 @@ digest(self)
     Digest::Whirlpool self
     CODE:
     {
+        /* A bit (tr)?icky, makes sure the SvPV is 64 bytes then grabs
+           its char* part and writes directly to it */
         RETVAL = newSVpv("", 64);
         NESSIEfinalize(&self->state, SvPV_nolen(RETVAL));
     }

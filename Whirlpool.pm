@@ -1,44 +1,15 @@
 package Digest::Whirlpool;
-
 use strict;
-use warnings;
-use MIME::Base64;
-require Exporter;
+use base qw< Digest::base >;
 
-our @EXPORT_OK = qw(new hashsize reset add addfile digest hexdigest base64digest);
-our $VERSION = '1.0.3';
-our @ISA = qw(Exporter);
+use XSLoader ();
 
-require XSLoader;
-XSLoader::load('Digest::Whirlpool', $VERSION);
+our $VERSION = '1.0.4';
 
-# Preloaded methods go here.
+XSLoader::load __PACKAGE__, $VERSION;
 
-sub addfile
-{
-    my ($self, $handle) = @_;
-    my ($package, $file, $line) = caller;
-
-    if (!ref($handle)) {
-        $handle = "$package::$handle" unless ($handle =~ /(\:\:|\')/);
-    }
-
-    while (read($handle, my $data, 1048576)) {
-        $self->add($data);
-    }
-}
-
-sub hexdigest
-{
-    my $self = shift;
-    return unpack("H*", $self->digest());
-}
-
-sub base64digest
-{
-    my $self = shift;
-    return encode_base64($self->digest(), "");
-}
+# Pre-1.0.4 used base64digest, maintain API compatibility with it.
+*base64digest = \&Digest::base::b64digest;
 
 1;
 
@@ -46,135 +17,114 @@ __END__
 
 =head1 NAME
 
-Digest::Whirlpool - A 512-bit one-way hash function
+Digest::Whirlpool - A 512-bit, collision-resistant, one-way hash function
 
 =head1 ABSTRACT
 
-Digest::Whirlpool - A 512-bit, collision-resistant, one-way hash
-function developed by Paulo S. L. M. Barreto and Vincent Rijmen.
+WHIRLPOOL is a 512-bit, collision-resistant, one-way hash function
+developed by Paulo S. L. M. Barreto and Vincent Rijmen. It has been
+recommended by the NESSIE project (along with SHA-256/384/512) and
+adopted as ISO/IEC 10118-3.
 
 =head1 SYNOPSIS
 
+    # Using L<Digest> (recommended)
+    use Digest;
+
+    my $whirlpool = Digest->new( 'Whirlpool' );
+
+    # Get a hash and reset the object
+    $whirlpool->add( "hash this" );
+    my $hexdigest = $whirlpool->hexdigest;
+
+    # Populate the object again, and clone it before getting the
+    # digest to avoid resetting
+    $whirlpool->add( "hash this" );
+    my $b64digest = $whirlpool->clone->b64digest;
+    $whirlpool->add( "add this to the hash" );
+
+
+    # Using this module directly (same interface)
     use Digest::Whirlpool;
-
-    $whirlpool = new Digest::Whirlpool;
-    $whirlpool->add(LIST);
-    $whirlpool->addfile(*HANDLE);
-    $whirlpool->reset();
-
-    $digest = $whirlpool->digest();
-    $digest = $whirlpool->hexdigest();
-    $digest = $whirlpool->base64digest();
-    
-    $digest = $whirlpool->hashsize();
+    my $whirlpool = Digest->new( 'Whirlpool' );
+    $whirlpool->add( ... );
+    ....
 
 =head1 DESCRIPTION
 
-Whirlpool is a 512-bit, collision-resistant, one-way hash
-function designed by Paulo S. L. M. Barreto and Vincent Rijmen.
-Whirlpool is the NESSIE winner for this category.
+Provides an interface to the WHIRLPOOL hash algorithm. This module
+subclasses L<Digest::base> and can be used either directly or through
+the L<Digest> meta-module. Using the latter is recommended.
 
-=head2 Functions
+=head1 METHODS
 
-=over
+Since this module implements the standard L<Digest
+interface|Digest/"OO INTERFACE"> and should be used through the
+L<Digest> module you should look at that documentation for the general
+interface, below is a description of methods that differ.
 
-=item B<hashsize()>
+=head2 clone
 
-Returns the size (in bits) of the hash (512, in this case)
+Copy the internal state of the current object into a new object and
+return it.
 
-=item B<add(LIST)>
+=head2 reset
 
-Hashes a string or a list of strings
+Resets the object to the same internal state it was in when it was
+constructed.
 
-=item B<addfile(*HANDLE)>
+This works exactly like L</new> except it doesn't allocate new memory
+for its internal state.
 
-Hashes a file
+=head2 base64digest
 
-=item B<reset()>
+An legacy alias for the B<b64digest> method which should be used
+instead.
 
-Re-initializes the hash state. Before calculating another digest, the
-hash state must be refreshed.
+=head2 hashsize
 
-=item B<digest()>
+Returns the size (in bits) of a WHIRLPOOL hash, i.e. 512.
 
-Generates the hash output (a 64-byte binary string)
+=head1 EXAMPLES
 
-=item B<hexdigest()>
+See the F<examples> and F<t> directories for some examples.
 
-Generates a hexadecimal representation of the hash output
+=head1 SEE ALSO
 
-=item B<base64digest()>
+NESSIE consortium, I<Portfolio of recommended cryptographic primitives>, February 27, 2003.
 
-Generates a base64 representation of the hash output. B<MIME::Base64>
-must be installed first for this function to work.
+L<Digest>, L<http://paginas.terra.com.br/informatica/paulobarreto/WhirlpoolPage.html>
 
-=back
+=head1 AUTHORS
 
-=head1 EXAMPLE 1
+E<AElig>var ArnfjE<ouml>rE<eth> Bjarmason <avar@cpan.org> (current maintainer)
 
-    #!/usr/local/bin/perl
+Julius C. Duque <jcduque (AT) lycos (DOT) com> (original author)
 
-    use diagnostics;
-    use strict;
-    use warnings;
-    use Digest::Whirlpool;
+=head1 BUGS
 
-    my $string1 = "This is a string.";
-    my $string2 = "This is another string.";
-    my $string3 = "This is a string.This is another string.";
+Please report any bugs that aren't already listed at
+L<http://rt.cpan.org/Dist/Display.html?Queue=Digest-Whirlpool> to
+L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Digest-Whirlpool>
 
-    my $whirlpool = new Digest::Whirlpool;
-    print "hash size=", $whirlpool->hashsize, "\n";
+n=head1 LICENSE
 
-    $whirlpool->add($string1);
-    my $digest = $whirlpool->hexdigest();
-    print "Hash string1 only\n";
-    print "$digest\n\n";
+Copyright 2003 Julius C. Duque and 2007 E<AElig>var
+ArnfjE<ouml>rE<eth> Bjarmason.
 
-    $whirlpool->reset();
-    $whirlpool->add($string1, $string2);
-    my $digest2 = $whirlpool->hexdigest();
-    print "Hash string1 and then hash string2\n";
-    print "$digest2\n\n";
-    
-    $whirlpool->reset();
-    $whirlpool->add($string3);
-    print "Hash the two concatenated strings\n";
-    my $digest3 = $whirlpool->hexdigest();
-    print "$digest3\n";
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
 
-=head1 EXAMPLE 2
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    #!/usr/local/bin/perl
-
-    use diagnostics;
-    use strict;
-    use warnings;
-    use MIME::Base64;
-    use Digest::Whirlpool;
-
-    my $file = "strings.pl";
-    open INFILE, $file or die "$file not found";
-
-    my $whirlpool = new Digest::Whirlpool;
-    $whirlpool->addfile(*INFILE);
-    my $hex_output = $whirlpool->hexdigest();
-    my $base64_output = $whirlpool->base64digest();
-    close INFILE;
-    print "$file\n";
-    print "$hex_output\n";
-    print "$base64_output\n";
-
-=head1 MORE EXAMPLES
-
-See the "examples" and "t" directories for more examples.
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2003 by Julius C. Duque <jcduque (AT) lycos (DOT) com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as the GNU General Public License.
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
 
