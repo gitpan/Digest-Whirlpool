@@ -1,6 +1,23 @@
+1.0.5    2006 January 30
+         Fixed typo in pod (oops!)
+
+         Changed to a Module::Install-based build system
+
+         Updated README file
+
+         PODed INSTALL
+
+         whirlpoolsum(1) utility
+
+         removed examples/ directory, the Digest docs and t/ should be more than enough
+
+         Updater ppport.h with Devel::PPPort
+
+         Relicensed from GPL => GPL/Artistic, see COPYING for rationale.
+
 1.0.4    2006 January 24
-         Added a clone() method that clones the state of the current object and
-         returns the cloned object.
+         - Added a clone() method that clones the state of the current object and
+         - returns the cloned object.
 
          add and addfile now return current the object so ->add( "foo" )->digest
          works like it does in other digest modules.

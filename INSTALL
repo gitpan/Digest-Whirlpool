@@ -1,6 +1,8 @@
-INSTALLATION
+=head1 NAME
 
-To install Digest::Whirlpool, type the following:
+INSTALL - How to install Digest::Whirlpool
+
+=head1 SYNOPSIS
 
    perl Makefile.PL
    make

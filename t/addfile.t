@@ -1,13 +1,11 @@
 use strict;
-use warnings;
 
 use Test::More tests => 1;
 
 use File::Spec;
-
 use Digest::Whirlpool;
 
-my $path = File::Spec->catfile( qw< t file1.test > );
+my $path = File::Spec->catfile( qw< t file.test > );
 
 open INFILE, $path;
 

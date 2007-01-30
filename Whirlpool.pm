@@ -4,7 +4,7 @@ use base qw< Digest::base >;
 
 use XSLoader ();
 
-our $VERSION = '1.0.4';
+our $VERSION = '1.0.5';
 
 XSLoader::load __PACKAGE__, $VERSION;
 
@@ -28,6 +28,8 @@ adopted as ISO/IEC 10118-3.
 
 =head1 SYNOPSIS
 
+In programs:
+
     # Using L<Digest> (recommended)
     use Digest;
 
@@ -43,18 +45,26 @@ adopted as ISO/IEC 10118-3.
     my $b64digest = $whirlpool->clone->b64digest;
     $whirlpool->add( "add this to the hash" );
 
-
     # Using this module directly (same interface)
     use Digest::Whirlpool;
     my $whirlpool = Digest->new( 'Whirlpool' );
     $whirlpool->add( ... );
     ....
 
+From the command line:
+
+    whirlpoolsum files
+    whirlpoolsum --help
+
 =head1 DESCRIPTION
 
 Provides an interface to the WHIRLPOOL hash algorithm. This module
 subclasses L<Digest::base> and can be used either directly or through
 the L<Digest> meta-module. Using the latter is recommended.
+
+=head1 EXPORT
+
+None.
 
 =head1 METHODS
 
@@ -85,21 +95,29 @@ instead.
 
 Returns the size (in bits) of a WHIRLPOOL hash, i.e. 512.
 
-=head1 EXAMPLES
-
-See the F<examples> and F<t> directories for some examples.
+=cut
 
 =head1 SEE ALSO
 
+=over 4
+
+=item
+
 NESSIE consortium, I<Portfolio of recommended cryptographic primitives>, February 27, 2003.
 
-L<Digest>, L<http://paginas.terra.com.br/informatica/paulobarreto/WhirlpoolPage.html>
+=item
 
-=head1 AUTHORS
+L<http://paginas.terra.com.br/informatica/paulobarreto/WhirlpoolPage.html>
 
-E<AElig>var ArnfjE<ouml>rE<eth> Bjarmason <avar@cpan.org> (current maintainer)
+=back
 
-Julius C. Duque <jcduque (AT) lycos (DOT) com> (original author)
+=head1 AUTHORS & HISTORY
+
+The original version of this package was written by Julius C. Duque in
+2003. It was rewritten by E<AElig>var ArnfjE<ouml>rE<eth> Bjarmason
+<avar@cpan.org> in January 2007 who added compatability with the
+Digest interface, improved documentation and a L<whirlpoolsum(1)>
+command-line utility amongst other things.
 
 =head1 BUGS
 
@@ -107,24 +125,12 @@ Please report any bugs that aren't already listed at
 L<http://rt.cpan.org/Dist/Display.html?Queue=Digest-Whirlpool> to
 L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Digest-Whirlpool>
 
-n=head1 LICENSE
+=head1 LICENSE
 
-Copyright 2003 Julius C. Duque and 2007 E<AElig>var
-ArnfjE<ouml>rE<eth> Bjarmason.
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+Copyright 2003 Julius C. Duque and 2007 E<AElig>var ArnfjE<ouml>rE<eth> Bjarmason.
 
 =cut
 

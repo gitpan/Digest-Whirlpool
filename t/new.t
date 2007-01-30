@@ -9,14 +9,14 @@ use Digest::Whirlpool;
 
 Test the XS constructor, should be equivalent to:
 
-  sub new
-  {
-    my $proto = shift;
-    bless {}, $proto;
-  }
+    sub new
+    {
+        my $proto = shift;
+        bless {}, ref $proto || $proto;
+    }
 
-But isn't, these tests are taken from the (as of writing) yet-to-be
-released L<Cwlib> test suite that's (cwlib wrapper).
+These tests are taken from the (as of writing) yet-to-be released
+L<Cwlib> (unix-cw wrapper) test suite.
 
 =head1 TESTS
 
@@ -57,8 +57,7 @@ released L<Cwlib> test suite that's (cwlib wrapper).
 
 =cut
 
-TODO: {
-    local $TODO = 'subclass';
+{
     my $pkg = 'Digest::Whirlpool::Subclass::One';
     my $cw = Digest::Whirlpool::new($pkg);
     isa_ok($cw, $pkg);
@@ -68,8 +67,7 @@ TODO: {
 
 =cut
 
-TODO: {
-    local $TODO = 'subclass';
+{
     package Digest::Whirlpool::Subclass::Two;
     package main;
     my $pkg = 'Digest::Whirlpool::Subclass::Two';
@@ -90,8 +88,7 @@ TODO: {
 
 =cut
 
-TODO: {
-    local $TODO = 'subclass';
+{
     package Digest::Whirlpool::Subclass::Three;
     use strict;
     use warnings;

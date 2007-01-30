@@ -1,11 +1,17 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Digest-Whirlpool
-version:      1.0.4
-version_from: Whirlpool.pm
-installdirs:  site
-requires:
-    MIME::Base64:                  0
-
+author: "\xC3\x86var Arnfj\xC3\xB6r\xC3\xB0 Bjarmason <avar@cpan.org>"
+build_requires: 
+  Test::More: 0
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30_01
+generated_by: Module::Install version 0.64
+license: perl
+name: Digest-Whirlpool
+no_index: 
+  directory: 
+    - inc
+    - t
+requires: 
+  Digest: 0
+  Digest::base: 0
+  Getopt::Long: 0
+  MIME::Base64: 0
+  Pod::Usage: 0
