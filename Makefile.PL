@@ -12,7 +12,7 @@ use inc::Module::Install;
 name 'Digest-Whirlpool';
 
 # Primary maintainer
-author 'Ævar Arnfjörð Bjarmason <avar@cpan.org>';
+{ use utf8; author 'Ævar Arnfjörð Bjarmason <avar@cpan.org>' }
 
 # some parts are under 'perl', see LICENSE
 license_from 'Whirlpool.pm';

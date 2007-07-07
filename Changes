@@ -1,4 +1,13 @@
-1.0.5    2006 January 30
+1.0.6    2007 July 07
+         Fixed typo in script/whirlpoolsum POD
+
+         use utf8 for author name in Makefile.PL
+
+         inc/: Upgraded to M::I 0.67
+
+         Fixed release dates in relaese by avar, released in 2007, not 2006
+
+1.0.5    2007 January 30
          Fixed typo in pod (oops!)
 
          Changed to a Module::Install-based build system
@@ -15,7 +24,7 @@
 
          Relicensed from GPL => GPL/Artistic, see COPYING for rationale.
 
-1.0.4    2006 January 24
+1.0.4    2007 January 24
          - Added a clone() method that clones the state of the current object and
          - returns the cloned object.
 

@@ -1,10 +1,10 @@
 package Digest::Whirlpool;
 use strict;
-use base qw< Digest::base >;
+use base 'Digest::base';
 
 use XSLoader ();
 
-our $VERSION = '1.0.5';
+our $VERSION = '1.0.6';
 
 XSLoader::load __PACKAGE__, $VERSION;
 

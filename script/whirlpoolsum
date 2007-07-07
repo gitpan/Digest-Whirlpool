@@ -41,7 +41,7 @@ read files in text mode (default)
 
 =item -s, --status
 
-don’t output anything, status code shows success
+don't output anything, status code shows success
 
 =item -h, --help
 
