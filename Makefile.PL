@@ -1,37 +1,42 @@
-
-=pod
-
-L<Module::Install> file for L<Digest::Whirlpool>. MI knows how to
-build our XS stuff automatically.
-
-=cut
-
 use strict;
-use inc::Module::Install;
+use ExtUtils::MakeMaker;
 
-name 'Digest-Whirlpool';
+my $dist = 'Digest-Whirlpool';
 
-# Primary maintainer
-{ use utf8; author 'Ævar Arnfjörð Bjarmason <avar@cpan.org>' }
+my %META = (
+ configure_requires => {
+  'ExtUtils::MakeMaker' => 0,
+ },
+ build_requires => {
+  'ExtUtils::MakeMaker' => 0,
+  'Test::More'          => 0,
+ },
+ resources => {
+  bugtracker => "http://rt.cpan.org/NoAuth/ReportBug.html?Queue=$dist",
+  homepage   => "http://search.cpan.org/dist/$dist/",
+  license    => 'http://dev.perl.org/licenses/',
+  repository => "http://git.nix.is/?p=avar/pm/$dist",
+ },
+);
 
-# some parts are under 'perl', see LICENSE
-license_from 'Whirlpool.pm';
+WriteMakefile(
+	NAME => 'Digest::Whirlpool',
+    AUTHOR => do { use utf8; 'Ævar Arnfjörð Bjarmason <avar@cpan.org>' },,
+    ABSTRACT_FROM => 'Whirlpool.pm',
+    VERSION_FROM => 'Whirlpool.pm',
+    LICENSE => 'perl',
+    EXE_FILES => [
+        'script/whirlpoolsum',
+    ],
+    PREREQ_PM => {
+        # script/
+        'Digest'       => 0, # 5.007003
+        'Pod::Usage'   => 0, # 5.006
+        'Getopt::Long' => 0, # 5
 
-install_script 'script/whirlpoolsum';
-
-# script/
-requires 'Digest'       => 0; # 5.007003
-requires 'Pod::Usage'   => 0; # 5.006
-requires 'Getopt::Long' => 0; # 5
-
-# lib/
-requires 'Digest::base' => 0; # 5.008003
-requires 'MIME::Base64' => 0; # 5.007003
-
-# t/
-build_requires 'Test::More' => 0; # 5.007003
-
-auto_install;
-WriteAll;
-
-
+        # lib/
+        'Digest::base' => 0, # 5.008003
+        'MIME::Base64' => 0, # 5.007003
+    },
+    META_MERGE => \%META,
+);

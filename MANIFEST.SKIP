@@ -1,5 +1,8 @@
+^blib
 ^Makefile$
 ^Makefile.old$
 ^MANIFEST.bak$
 ^.git
+^pm_to_blib
+^Whirlpool\.(bs|c|o)$
 Digest-Whirlpool*

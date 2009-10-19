@@ -1,21 +1,32 @@
---- 
-author: Ã†var ArnfjÃ¶rÃ° Bjarmason <avar@cpan.org>
-build_requires: 
-  Test::More: 0
-distribution_type: module
-generated_by: Module::Install version 0.67
-license: perl
-meta-spec: 
-  url: http://module-build.sourceforge.net/META-spec-v1.3.html
-  version: 1.3
-name: Digest-Whirlpool
-no_index: 
-  directory: 
-    - inc
-    - t
-requires: 
-  Digest: 0
-  Digest::base: 0
-  Getopt::Long: 0
-  MIME::Base64: 0
-  Pod::Usage: 0
+--- #YAML:1.0
+name:               Digest-Whirlpool
+version:            1.09
+abstract:           A 512-bit, collision-resistant, one-way hash function
+author:
+    - Ævar Arnfjörð Bjarmason <avar@cpan.org>
+license:            perl
+distribution_type:  module
+configure_requires:
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
+    Test::More:           0
+requires:
+    Digest:        0
+    Digest::base:  0
+    Getopt::Long:  0
+    MIME::Base64:  0
+    Pod::Usage:    0
+resources:
+    bugtracker:  http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Digest-Whirlpool
+    homepage:    http://search.cpan.org/dist/Digest-Whirlpool/
+    license:     http://dev.perl.org/licenses/
+    repository:  http://git.nix.is/?p=avar/pm/Digest-Whirlpool
+no_index:
+    directory:
+        - t
+        - inc
+generated_by:       ExtUtils::MakeMaker version 6.54
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4

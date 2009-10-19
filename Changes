@@ -1,3 +1,9 @@
+1.09     2009 October 19
+
+         Fix RT#40551: Use one dot in the version format instead of two. warnings doesn't whine 
+
+         Use ExtUtils::MakeMaker instead of the Module::Install cancer
+
 1.0.8    2009 October 18
 
          Like 1.0.7 but with an updated MANIFEST
