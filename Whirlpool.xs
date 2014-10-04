@@ -1,8 +1,9 @@
 #include "EXTERN.h"
 #include "perl.h"
 #include "XSUB.h"
+#define NEED_newRV_noinc
 #include "ppport.h"
-#include "_whirlpool.c"
+#include "upstream/Whirlpool.c"
 
 typedef struct whirlpool {
     NESSIEstruct state;

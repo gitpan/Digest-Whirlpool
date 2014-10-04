@@ -1,8 +1,16 @@
-1.09     2009 October 19
+1.0.9    2014 October 4
 
-         Fix RT#40551: Use one dot in the version format instead of two. warnings doesn't whine 
+         Now includes the upstream Whirlpool.c and nessie.h
+         as-is. There should be no functional changes, but this makes
+         the module easier to maintain.
 
-         Use ExtUtils::MakeMaker instead of the Module::Install cancer
+         Also moved the loading of the C code to BEGIN time, again,
+         should have no functional changes.
+
+         The ppport.h file was updated to the latest upstream release
+         and suggested changes applied to Whirlpool.xs.
+
+         Bump Module::Install to the latest upstream version.
 
 1.0.8    2009 October 18
 
